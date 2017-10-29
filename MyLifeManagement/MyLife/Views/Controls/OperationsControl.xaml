@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="MyLifeManagement.MyLife.Views.Controls.OperationsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyLifeManagement.MyLife.Views.Controls"
+             xmlns:db="clr-namespace:MyLifeManagement.MyLife.Database"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DataGrid Name="operationsDataGrid" AutoGenerateColumns="False">
+        
+        <DataGrid.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#C4B9A7"/>
+        </DataGrid.Resources>
+        
+        <DataGrid.ContextMenu>
+            <ContextMenu >
+                <MenuItem Header="Re-run auto entity" Click="rerunAutoEntity_Click" />
+            </ContextMenu>
+        </DataGrid.ContextMenu>
+        <DataGrid.Columns>
+            
+            <DataGridTemplateColumn Header="Date" IsReadOnly="True" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <DatePicker SelectedDate="{Binding Date, Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="Description" IsReadOnly="True" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding Description, Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="Move" IsReadOnly="True" MinWidth="100" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding OperationMove, Mode=OneWay}" HorizontalAlignment="Right" 
+                                           Background="{Binding OperationMove.Color, Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="Balance" IsReadOnly="True" MinWidth="100" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding CurrentBalance, Mode=OneWay}" HorizontalAlignment="Right"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="Exception" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding Path=Exception, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="Notes" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Width="auto" VerticalAlignment="Center" 
+                                             MinWidth="200" Margin="10,0,5,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="Entity" IsReadOnly="True" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding AutoEntity}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="Force Entity" MinWidth="150" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <ComboBox  SelectedItem="{Binding ForcedEntity, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={x:Static db:Keeper.AllEntities}}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn Header="Force Type" MinWidth="150" CanUserReorder="True" CanUserResize="True" CanUserSort="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <ComboBox SelectedItem="{Binding ForcedType, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={x:Static db:Keeper.AllTypes}}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>
